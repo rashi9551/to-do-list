@@ -1,11 +1,15 @@
 import './App.css'
-import  {useState} from 'react'
+import  {useState,useEffect,useRef} from 'react'
 function App() {
   const currentDate=new Date()
   const options = { weekday: 'long' }
   const DayName = currentDate.toLocaleString('en-US', options)
+  const inputFocus=useRef('')
   const [toDos,setToDos]=useState([])
   const [toDo,setToDo]=useState('')
+  useEffect(()=>{
+    inputFocus.current.focus()
+  })
   return (
     <div className="app">
     <div className="mainHeading">
@@ -17,7 +21,7 @@ function App() {
       <h2>Whoop, it's {DayName}  🌝 ☕ </h2>
     </div> 
     <div className="input">
-      <input value={toDo} onChange={(e)=>setToDo(e.target.value)} type="text" placeholder="🖊️ Add item..." />
+      <input  value={toDo} onChange={(e)=>setToDo(e.target.value)} type="text" placeholder="🖊️ Add item..." />
       <i onClick={()=>{setToDos([...toDos,{id:Date.now(),text:toDo,status:false}]);setToDo('')}} className="fas fa-plus"></i>
     </div>
     <div className="todos">
